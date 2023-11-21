@@ -141,14 +141,21 @@ function Board() {
       // console.log("if 2");
       setCards((cards) => {
         const activeIndex = cards.findIndex((t) => t.id === activeId);
+        // const overIndex = cards.findIndex((t) => t.id === overId);
+        const activeCard = cards.find((c) => c.id === activeId)!;
+        const overCard = cards.find((c) => c.id === overId)!;
 
         cards[activeIndex].rowId = overId;
-        console.log("DROPPING TASK OVER ROW", { activeIndex });
-        return arrayMove(cards, activeIndex, activeIndex);
+        console.log("DROPPING TASK OVER ROW", activeCard, overCard);
+        const arr = [...cards];
+
+        const cardToAdd = cards.find((c) => c.id === activeId)!;
+        const filtered = arr.filter((c) => c.id !== active.id);
+
+        return [...filtered, cardToAdd];
       });
     }
   };
-  // console.log("ROWS", rows);
   return (
     <>
       <button onClick={() => addRow()}>Add row</button>
